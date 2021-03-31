@@ -1,0 +1,26 @@
+@import "../../components/config.scss";
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  .pokemon-card {
+    margin: 2rem 0;
+    height: 35vh;
+    width: 40vh;
+    background-color: $background-color;
+    border-radius: 35px;
+    border: 1px solid $shadow-color;
+
+    .pokemon-item {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      .pokemon-img {
+      }
+    }
+  }
+}

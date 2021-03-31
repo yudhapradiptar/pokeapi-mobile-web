@@ -1,0 +1,30 @@
+@import '../config';
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  background-color: $primary-color;
+  color: $secondary-color;
+  width: 100%;
+  height: 8vh;
+  font-size: 2rem;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 2px 2px 2px 2px $shadow-color;
+  justify-content: space-between;
+
+  .navitem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 5rem;
+    margin: 0 3rem 0 3rem;
+    color: $secondary-color;
+    text-decoration: none;
+    cursor: pointer;
+    
+    .navitem-title {
+      font-size: 1rem;
+    }
+  }
+}

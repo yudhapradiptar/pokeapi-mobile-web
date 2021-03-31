@@ -1,0 +1,23 @@
+@import "config";
+
+.pokemon-card {
+  margin: 2rem 0;
+  height: 35vh;
+  width: 40vh;
+  background-color: $background-color;
+  border-radius: 35px;
+  border: 1px solid $shadow-color;
+  text-decoration: none;
+  color: $text-color-black;
+
+  .pokemon-item {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .pokemon-img{
+        
+    }
+  }
+}
