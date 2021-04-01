@@ -2,32 +2,46 @@ import React, { useState, useEffect } from "react";
 import "./PokemonCard.scss";
 import { Link, useLocation } from "react-router-dom";
 import image from "../assets/images/logo192.png";
+import PokeButton from "./PokeButton";
 
-const PokemonCard = () => {
-//   let path = window.location.pathname;
+const PokemonCard = (props) => {
+  //   let path = window.location.pathname;
   const owned = 0;
-  const nickname = "Test Nick"
-  const location = useLocation();
+  const nickname = "Test Nick";
+  const location = useLocation().pathname;
 
-//   useEffect(() => {
-//     getData(1);
-//   }, []);
+  //   useEffect(() => {
+  //     getData(1);
+  //   }, []);
 
   return (
-    <Link
-    to={"/detail/12"}
-      className="pokemon-card"
-      onClick={() => console.log(window.location.pathname)}
-    >
-      <div className="pokemon-item">
-        <div className="pokemon-image"></div>
-        <div className="pokemon-info">
-        <img src={image} alt="pokemon" className="pokemon-image"/>
-          <p>Owned: {owned}</p>
-          {location.pathname === "/my-pokemon" && <p>Nickname: {nickname}</p>}
+    <>
+      <Link
+        to={`/detail/${props.num}`}
+        className="pokemon-card"
+        onClick={() => console.log(window.location.pathname)}
+        style={location === "/my-pokemon" ? { height: "50vh" } : {}}
+      >
+        <div className="pokemon-item">
+          <div className="pokemon-image">
+            <img src={image} alt="pokemon" className="pokemon-image" />
+          </div>
+          <div className="pokemon-info">
+            <p>Owned: {owned}</p>
+            {location === "/my-pokemon" && (
+              <p className="nickname">Nickname: {nickname}</p>
+            )}
+            {location === "/my-pokemon" && (
+              <PokeButton
+                className="poke-button"
+                text="Release!"
+                onclick={()=>console.log("Released")}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </>
   );
 };
 

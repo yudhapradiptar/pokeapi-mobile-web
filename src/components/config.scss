@@ -1,5 +1,21 @@
 $primary-color: white;
 $secondary-color: #fa3c3c;
+$third-color: rgb(105, 105, 219);
 $shadow-color: gray;
 $background-color: rgb(238, 238, 238);
 $text-color-black: #272727;
+
+.poke-button {
+//   background-color: $third-color;
+  border-radius: 12px;
+  border: 2px solid $primary-color;
+  display: inline-block;
+  cursor: pointer;
+//   color: $primary-color;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 16px 26px;
+  text-decoration: none;
+  margin-top: 2rem;
+}

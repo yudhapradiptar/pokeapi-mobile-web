@@ -16,8 +16,17 @@
     flex-direction: column;
     text-align: center;
 
+    .nickname {
+      margin-top: 1rem;
+    }
+
     .pokemon-img{
         
+    }
+
+    .poke-button {
+      background-color: $secondary-color;
+      color: $primary-color;
     }
   }
 }

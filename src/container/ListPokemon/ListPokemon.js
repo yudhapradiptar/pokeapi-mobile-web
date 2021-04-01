@@ -16,7 +16,7 @@ const ListPokemon = () => {
     <>
       <div className="list-pokemon">
         {arr.map((num) => (
-          <PokemonCard />
+          <PokemonCard num />
         ))}
       </div>
     </>
