@@ -18,10 +18,9 @@ const PokemonCard = (props) => {
   return (
     <>
       <Link
-        to={`/detail/${props.num}`}
+        to={`/detail/${props.name}`}
         className="pokemon-card"
         onClick={() => console.log(window.location.pathname)}
-        style={location === "/my-pokemon" ? { height: "27vh" } : {}}
       >
         <div className="pokemon-item">
           <div className="pokemon-info">

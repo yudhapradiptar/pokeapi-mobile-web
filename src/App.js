@@ -11,7 +11,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={ListPokemon} />
           <Route exact path="/my-pokemon" component={ListPokemon} />
-          <Route exact path={"/detail/:uuid"} component={DetailPokemon} />
+          <Route exact path={"/detail/:name"} component={DetailPokemon} />
         </Switch>
         <Navbar />
       </Router>

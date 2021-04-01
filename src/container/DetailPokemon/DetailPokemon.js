@@ -1,18 +1,43 @@
 import React, { useState, useEffect } from "react";
-import image from "../../assets/images/logo192.png";
+import { useParams } from "react-router-dom";
+// import image from "../../assets/images/logo192.png";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
+import instance from "../../axios";
+import { configure } from "@testing-library/dom";
 
 const DetailPokemon = () => {
   const moves = "Moonwalk";
   const types = "Electric";
-  const name = "Charizard"
+  const { name } = useParams();
+  const [pokemon, setPokemon] = useState({
+    name: "",
+    moves: [],
+    types: [],
+    image: "",
+  });
+
   const [showForm, setShowForm] = useState(false);
   const [nickForm, setNickForm] = useState("");
 
+  const getPokemon = async () => {
+    const response = await instance.get(`/pokemon/${name}`);
+    console.log(response.data);
+    setPokemon({
+      ...pokemon,
+      name: response.data.name,
+      moves: response.data.moves,
+      types: response.data.types,
+      image: response.data.sprites.front_default,
+    })
+  };
+
+  useEffect(() => {
+    getPokemon();
+  }, []);
+
   const handleSubmitCatch = async (event) => {
-    // event.preventDefault();
-    if(nickForm !== ""){
+    if (nickForm !== "") {
       try {
         console.log(nickForm);
         setShowForm(false);
@@ -32,16 +57,12 @@ const DetailPokemon = () => {
       <div className="detail">
         <div
           className="pokemon-card"
-          style={showForm ? { height: "65vh" } : {}}
         >
           <div className="pokemon-item">
-            <img src={image} alt="pokemon" className="pokemon-image" />
+            <img src={pokemon.image} alt="pokemon" className="pokemon-image" />
             <p>Name: {name}</p>
             <p>Moves: {moves}</p>
             <p>Types: {types}</p>
-            {/* {!showForm && <div className="poke-button" onClick={() => setShowForm(true)}>
-              Catch!
-            </div>} */}
             {!showForm && (
               <PokeButton
                 className="poke-button"
