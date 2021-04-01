@@ -25,7 +25,7 @@ const PokemonCard = (props) => {
       >
         <div className="pokemon-item">
           <div className="pokemon-info">
-            <p>Name: {name}</p>
+            <p>Name: {props.name}</p>
             <p>Owned: {owned}</p>
             {location === "/my-pokemon" && (
               <p className="nickname">Nickname: {nickname}</p>
