@@ -6,6 +6,7 @@ import PokeButton from "../../components/PokeButton";
 const DetailPokemon = () => {
   const moves = "Moonwalk";
   const types = "Electric";
+  const name = "Charizard"
   const [showForm, setShowForm] = useState(false);
   const [nickForm, setNickForm] = useState("");
 
@@ -31,10 +32,11 @@ const DetailPokemon = () => {
       <div className="detail">
         <div
           className="pokemon-card"
-          style={showForm ? { height: "60vh" } : {}}
+          style={showForm ? { height: "65vh" } : {}}
         >
           <div className="pokemon-item">
             <img src={image} alt="pokemon" className="pokemon-image" />
+            <p>Name: {name}</p>
             <p>Moves: {moves}</p>
             <p>Types: {types}</p>
             {/* {!showForm && <div className="poke-button" onClick={() => setShowForm(true)}>

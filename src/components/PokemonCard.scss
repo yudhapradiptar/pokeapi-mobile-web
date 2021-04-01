@@ -2,7 +2,7 @@
 
 .pokemon-card {
   margin: 2rem 0;
-  height: 35vh;
+  height: 12vh;
   width: 40vh;
   background-color: $background-color;
   border-radius: 35px;
@@ -16,7 +16,7 @@
     flex-direction: column;
     text-align: center;
 
-    .nickname {
+    p {
       margin-top: 1rem;
     }
 
@@ -27,6 +27,7 @@
     .poke-button {
       background-color: $secondary-color;
       color: $primary-color;
+      margin-top: 1rem;
     }
   }
 }
