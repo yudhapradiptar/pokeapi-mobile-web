@@ -8,6 +8,7 @@ const PokemonCard = (props) => {
   //   let path = window.location.pathname;
   const owned = 0;
   const nickname = "Test Nick";
+  const name = "Actual Name"
   const location = useLocation().pathname;
 
   //   useEffect(() => {
@@ -20,13 +21,11 @@ const PokemonCard = (props) => {
         to={`/detail/${props.num}`}
         className="pokemon-card"
         onClick={() => console.log(window.location.pathname)}
-        style={location === "/my-pokemon" ? { height: "50vh" } : {}}
+        style={location === "/my-pokemon" ? { height: "27vh" } : {}}
       >
         <div className="pokemon-item">
-          <div className="pokemon-image">
-            <img src={image} alt="pokemon" className="pokemon-image" />
-          </div>
           <div className="pokemon-info">
+            <p>Name: {name}</p>
             <p>Owned: {owned}</p>
             {location === "/my-pokemon" && (
               <p className="nickname">Nickname: {nickname}</p>
