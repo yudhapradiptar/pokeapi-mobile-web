@@ -4,15 +4,11 @@ import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
 
 const DetailPokemon = () => {
-  const moves = "Moonwalk";
-  const types = "Electric";
-  const name = "Charizard"
   const [showForm, setShowForm] = useState(false);
   const [nickForm, setNickForm] = useState("");
 
   const handleSubmitCatch = async (event) => {
-    // event.preventDefault();
-    if(nickForm !== ""){
+    if (nickForm !== "") {
       try {
         console.log(nickForm);
         setShowForm(false);
@@ -27,26 +23,26 @@ const DetailPokemon = () => {
     setNickForm("");
   };
 
+  const catchingChance = () => {
+    const bool = Math.random() < 0.5;
+    if (bool) {
+      setShowForm(true);
+    } else {
+      setShowForm(false);
+    }
+  };
+
   return (
     <>
       <div className="detail">
-        <div
-          className="pokemon-card"
-          style={showForm ? { height: "65vh" } : {}}
-        >
+        <div className="pokemon-card">
           <div className="pokemon-item">
             <img src={image} alt="pokemon" className="pokemon-image" />
-            <p>Name: {name}</p>
-            <p>Moves: {moves}</p>
-            <p>Types: {types}</p>
-            {/* {!showForm && <div className="poke-button" onClick={() => setShowForm(true)}>
-              Catch!
-            </div>} */}
             {!showForm && (
               <PokeButton
                 className="poke-button"
                 text="Catch!"
-                onclick={() => setShowForm(true)}
+                onclick={() => catchingChance()}
               />
             )}
             {showForm && (
@@ -75,6 +71,22 @@ const DetailPokemon = () => {
                 </div>
               </div>
             )}
+            <div className="info-detail">
+              <div className="detail-item">
+                <p style={{ paddingRight: "20px" }}>Name:</p>
+                <p>Actual name</p>
+              </div>
+              <div className="detail-item">
+                <p style={{ paddingRight: "1rem" }}>Moves:</p>
+                <p>
+                  In nisi adipisicing labore nostru lorem ipsum badjsadisahdsai
+                </p>
+              </div>
+              <div className="detail-item">
+                <p style={{ paddingRight: "20px" }}>Types:</p>
+                <p>In nisi adipisicing labore nostrud.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
