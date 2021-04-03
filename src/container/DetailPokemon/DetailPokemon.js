@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
 import instance from "../../axios";
-import { configure } from "@testing-library/dom";
 
 const DetailPokemon = () => {
   const moves = "Moonwalk";
