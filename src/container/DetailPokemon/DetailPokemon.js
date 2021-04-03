@@ -6,8 +6,9 @@ import PokeButton from "../../components/PokeButton";
 import instance from "../../axios";
 
 const DetailPokemon = () => {
-  const moves = "Moonwalk";
-  const types = "Electric";
+  const [showForm, setShowForm] = useState(false);
+  const [nickForm, setNickForm] = useState("");
+
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({
     name: "",
@@ -16,20 +17,19 @@ const DetailPokemon = () => {
     image: "",
   });
 
-  const [showForm, setShowForm] = useState(false);
-  const [nickForm, setNickForm] = useState("");
-
   const getPokemon = async () => {
     const response = await instance.get(`/pokemon/${name}`);
-    console.log(response.data);
     setPokemon({
       ...pokemon,
       name: response.data.name,
       moves: response.data.moves,
       types: response.data.types,
       image: response.data.sprites.front_default,
-    })
+    });
   };
+
+  let movesLen = pokemon.moves.length;
+  let typesLen = pokemon.types.length;
 
   useEffect(() => {
     getPokemon();
@@ -51,22 +51,26 @@ const DetailPokemon = () => {
     setNickForm("");
   };
 
+  const catchingChance = () => {
+    const bool = Math.random() < 0.5;
+    if (bool) {
+      setShowForm(true);
+    } else {
+      setShowForm(false);
+    }
+  };
+
   return (
     <>
       <div className="detail">
-        <div
-          className="pokemon-card"
-        >
+        <div className="pokemon-card">
           <div className="pokemon-item">
             <img src={pokemon.image} alt="pokemon" className="pokemon-image" />
-            <p>Name: {name}</p>
-            <p>Moves: {moves}</p>
-            <p>Types: {types}</p>
             {!showForm && (
               <PokeButton
                 className="poke-button"
                 text="Catch!"
-                onclick={() => setShowForm(true)}
+                onclick={() => catchingChance()}
               />
             )}
             {showForm && (
@@ -95,6 +99,25 @@ const DetailPokemon = () => {
                 </div>
               </div>
             )}
+            <div className="info-detail">
+              <div className="detail-item">
+                <p style={{ paddingRight: "20px" }}>Name:</p>
+                <p>{pokemon.name}</p>
+              </div>
+              <div className="detail-item">
+                <p style={{ paddingRight: "1rem" }}>Moves:</p>
+                <p>
+                  {pokemon.moves.map((move, i) => (
+                    movesLen === i+1 ? `${move.move.name}`: `${move.move.name}, `
+                  ))}
+                </p>
+              </div>
+              <div className="detail-item">
+                <p style={{ paddingRight: "20px" }}>Types:</p>
+                <p>{pokemon.types.map((type, i) => (
+                  typesLen === i+1 ? `${type.type.name}`: `${type.type.name}, `))}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
