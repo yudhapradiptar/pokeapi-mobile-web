@@ -5,13 +5,13 @@ import PokeButton from "./PokeButton";
 import { MyPokemonsContext } from "../context/MyPokemonsContext";
 
 const PokemonCard = (props) => {
-  const { removeMyPokemon } = useContext(MyPokemonsContext);
+  const { dispatch } = useContext(MyPokemonsContext);
   const owned = 0;
 
   const releasePokemon = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    removeMyPokemon(props.nickname)
+    dispatch({type: 'RELEASE', nickname: props.nickname})
   };
 
   return (

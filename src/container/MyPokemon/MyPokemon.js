@@ -6,10 +6,6 @@ import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 const ListPokemon = () => {
   const { myPokemons } = useContext(MyPokemonsContext);
 
-  //   useEffect(() => {
-  //     getData();
-  //   }, [myPokemons]);
-
   console.log(myPokemons);
 
   return myPokemons.length !== 0 ? (

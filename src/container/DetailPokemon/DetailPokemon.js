@@ -8,7 +8,7 @@ import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 const DetailPokemon = () => {
   const [showForm, setShowForm] = useState(false);
 
-  const { addMyPokemons } = useContext(MyPokemonsContext);
+  const { dispatch } = useContext(MyPokemonsContext);
 
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({
@@ -42,7 +42,7 @@ const DetailPokemon = () => {
     try {
       console.log(pokemon);
       setShowForm(false);
-      addMyPokemons(pokemon);
+      dispatch({type: 'CATCH', pokemon: pokemon});
       handleHideForm();
       window.alert(`${pokemon.nickname} has been caught`)
     } catch (e) {

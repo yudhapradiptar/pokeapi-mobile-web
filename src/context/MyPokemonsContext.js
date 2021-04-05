@@ -1,23 +1,19 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
+import { myPokemonReducer } from "../reducer/myPokemonReducer";
 
 export const MyPokemonsContext = createContext();
 
 const MyPokemonsContextProvider = (props) => {
-  const [myPokemons, setMyPokemons] = useState([]);
+  const [myPokemons, dispatch] = useReducer(myPokemonReducer, [], ()=> {
+      const localData = localStorage.getItem('myPokemons');
+      return localData ? JSON.parse(localData) : [] 
+  });
+    useEffect(()=> {
+        localStorage.setItem('myPokemons', JSON.stringify(myPokemons))
+    }, [myPokemons])
 
-  const addMyPokemons = (pokemon) => {
-    console.log("addMyPokemonsContext");
-    setMyPokemons([...myPokemons, pokemon]);
-  };
-  const removeMyPokemon = (nickname) => {
-    setMyPokemons(
-      myPokemons.filter((pokemon) => pokemon.nickname !== nickname)
-    );
-  };
   return (
-    <MyPokemonsContext.Provider
-      value={{ myPokemons, addMyPokemons, removeMyPokemon }}
-    >
+    <MyPokemonsContext.Provider value={{ myPokemons, dispatch }}>
       {props.children}
     </MyPokemonsContext.Provider>
   );
