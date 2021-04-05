@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import image from "../../assets/images/logo192.png";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
 import instance from "../../axios";
+import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 
 const DetailPokemon = () => {
   const [showForm, setShowForm] = useState(false);
-  const [nickForm, setNickForm] = useState("");
+
+  const { addMyPokemons } = useContext(MyPokemonsContext);
 
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({
@@ -15,6 +16,7 @@ const DetailPokemon = () => {
     moves: [],
     types: [],
     image: "",
+    nickname: ""
   });
 
   const getPokemon = async () => {
@@ -35,27 +37,32 @@ const DetailPokemon = () => {
     getPokemon();
   }, []);
 
-  const handleSubmitCatch = async (event) => {
-    if (nickForm !== "") {
-      try {
-        console.log(nickForm);
-        setShowForm(false);
-      } catch (e) {
-        console.log(e);
-      }
+  const handleSubmitCatch = (e) => {
+    e.preventDefault();
+    try {
+      console.log(pokemon);
+      setShowForm(false);
+      addMyPokemons(pokemon);
+      handleHideForm();
+      window.alert(`${pokemon.nickname} has been caught`)
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const handleHideForm = () => {
     setShowForm(false);
-    setNickForm("");
+    setPokemon({
+      ...pokemon,
+      nickname: ""
+    })
   };
 
   const catchingChance = () => {
-    const bool = Math.random() < 0.5;
-    if (bool) {
+    if (Math.random() < 0.5) {
       setShowForm(true);
     } else {
+      window.alert("You missed, try again!");
       setShowForm(false);
     }
   };
@@ -74,22 +81,20 @@ const DetailPokemon = () => {
               />
             )}
             {showForm && (
-              <div className="form">
+              <form onSubmit={handleSubmitCatch}>
                 <input
                   type="text"
                   id="nickname"
                   name="nickname"
                   placeholder="Enter Nickname"
-                  onChange={(e) => setNickForm(e.target.value)}
+                  onChange={(e) => setPokemon({
+                    ...pokemon,
+                    nickname: (e.target.value)
+                  })}
+                  required
                 />
                 <div className="form-buttons">
-                  <PokeButton
-                    text="submit"
-                    color="white"
-                    backgroundColor="#00C851"
-                    onclick={() => handleSubmitCatch()}
-                    disabled={nickForm === ""}
-                  />
+                  <input type="submit" value="Catch" />
                   <PokeButton
                     text="cancel"
                     color="white"
@@ -97,7 +102,7 @@ const DetailPokemon = () => {
                     onclick={() => handleHideForm()}
                   />
                 </div>
-              </div>
+              </form>
             )}
             <div className="info-detail">
               <div className="detail-item">
@@ -107,15 +112,22 @@ const DetailPokemon = () => {
               <div className="detail-item">
                 <p style={{ paddingRight: "1rem" }}>Moves:</p>
                 <p>
-                  {pokemon.moves.map((move, i) => (
-                    movesLen === i+1 ? `${move.move.name}`: `${move.move.name}, `
-                  ))}
+                  {pokemon.moves.map((move, i) =>
+                    movesLen === i + 1
+                      ? `${move.move.name}`
+                      : `${move.move.name}, `
+                  )}
                 </p>
               </div>
               <div className="detail-item">
                 <p style={{ paddingRight: "20px" }}>Types:</p>
-                <p>{pokemon.types.map((type, i) => (
-                  typesLen === i+1 ? `${type.type.name}`: `${type.type.name}, `))}</p>
+                <p>
+                  {pokemon.types.map((type, i) =>
+                    typesLen === i + 1
+                      ? `${type.type.name}`
+                      : `${type.type.name}, `
+                  )}
+                </p>
               </div>
             </div>
           </div>

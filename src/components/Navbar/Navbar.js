@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Navbar.scss";
 import { CgPokemon } from "react-icons/cg";
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
@@ -11,7 +11,7 @@ const Navbar = () => {
     <>
       <div className="navbar">
         <Link to={"/"} className="navitem">
-          {location.pathname === "/" ? <AiFillHome /> : <AiOutlineHome />}
+          <AiFillHome />
           <div className="navitem-title" style={{ marginLeft: "1rem" }}>
             Home
           </div>

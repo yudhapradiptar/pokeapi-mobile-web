@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: auto;
+  margin-bottom: 4rem;
 
   .pokemon-card {
     height: auto;
@@ -19,7 +20,7 @@
       flex-direction: column;
       margin-bottom: 1rem;
 
-      p{
+      p {
         margin-top: 1rem;
       }
 
@@ -33,7 +34,7 @@
         flex-direction: column;
         width: 100%;
 
-        .detail-item{
+        .detail-item {
           display: flex;
           justify-content: flex-start;
           padding: 0 1rem;
@@ -44,7 +45,7 @@
       .pokemon-img {
       }
 
-      input[type=text], select {
+      input[type="text"] {
         width: 80%;
         padding: 12px 20px;
         margin: 2px 0;
@@ -54,6 +55,21 @@
         box-sizing: border-box;
         margin-top: 2rem;
         text-align: center;
+      }
+
+      input[type="submit"] {
+        background-color: #00C851;
+        border-radius: 12px;
+        border: 2px solid $primary-color;
+        display: inline-block;
+        cursor: pointer;
+        color: $primary-color;
+        font-family: Arial;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 16px 26px;
+        text-decoration: none;
+        margin-top: 2rem;
       }
     }
   }

@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import "./PokemonCard.scss";
-import { Link, useLocation } from "react-router-dom";
-import image from "../assets/images/logo192.png";
+import { Link } from "react-router-dom";
 import PokeButton from "./PokeButton";
+import { MyPokemonsContext } from "../context/MyPokemonsContext";
 
 const PokemonCard = (props) => {
-  //   let path = window.location.pathname;
+  const { removeMyPokemon } = useContext(MyPokemonsContext);
   const owned = 0;
-  const nickname = "Test Nick";
-  const name = "Actual Name"
-  const location = useLocation().pathname;
 
-  //   useEffect(() => {
-  //     getData(1);
-  //   }, []);
+  const releasePokemon = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    removeMyPokemon(props.nickname)
+  };
 
   return (
     <>
@@ -25,15 +24,15 @@ const PokemonCard = (props) => {
         <div className="pokemon-item">
           <div className="pokemon-info">
             <p>Name: {props.name}</p>
-            <p>Owned: {owned}</p>
-            {location === "/my-pokemon" && (
-              <p className="nickname">Nickname: {nickname}</p>
+            {props.from === "list" && <p>Owned: {owned}</p>}
+            {props.from === "myPokemon" && (
+              <p className="nickname">Nickname: {props.nickname}</p>
             )}
-            {location === "/my-pokemon" && (
+            {props.from === "myPokemon" && (
               <PokeButton
                 className="poke-button"
                 text="Release!"
-                onclick={()=>console.log("Released")}
+                onclick={(e) => releasePokemon(e)}
               />
             )}
           </div>
