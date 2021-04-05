@@ -6,7 +6,6 @@ import { MyPokemonsContext } from "../context/MyPokemonsContext";
 
 const PokemonCard = (props) => {
   const { dispatch } = useContext(MyPokemonsContext);
-  const owned = 0;
 
   const releasePokemon = (e) => {
     e.stopPropagation();
@@ -19,12 +18,11 @@ const PokemonCard = (props) => {
       <Link
         to={`/detail/${props.name}`}
         className="pokemon-card"
-        onClick={() => console.log(window.location.pathname)}
       >
         <div className="pokemon-item">
           <div className="pokemon-info">
             <p>Name: {props.name}</p>
-            {props.from === "list" && <p>Owned: {owned}</p>}
+            {props.from === "list" && <p>Owned: {props.owned}</p>}
             {props.from === "myPokemon" && (
               <p className="nickname">Nickname: {props.nickname}</p>
             )}

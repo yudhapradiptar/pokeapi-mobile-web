@@ -8,7 +8,7 @@ import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 const DetailPokemon = () => {
   const [showForm, setShowForm] = useState(false);
 
-  const { dispatch } = useContext(MyPokemonsContext);
+  const { dispatch, myPokemons } = useContext(MyPokemonsContext);
 
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({
@@ -16,7 +16,7 @@ const DetailPokemon = () => {
     moves: [],
     types: [],
     image: "",
-    nickname: ""
+    nickname: "",
   });
 
   const getPokemon = async () => {
@@ -37,14 +37,23 @@ const DetailPokemon = () => {
     getPokemon();
   }, []);
 
+  const checkDuplicate = (nick) => {
+    for (var i = 0; i<myPokemons.length;i++) {
+      if (myPokemons[i].nickname === nick) return false;
+    }
+    return true;
+  };
+
   const handleSubmitCatch = (e) => {
     e.preventDefault();
     try {
-      console.log(pokemon);
-      setShowForm(false);
-      dispatch({type: 'CATCH', pokemon: pokemon});
-      handleHideForm();
-      window.alert(`${pokemon.nickname} has been caught`)
+      if (checkDuplicate(pokemon.nickname)) {
+        dispatch({ type: "CATCH", pokemon: pokemon });
+        handleHideForm();
+        window.alert(`${pokemon.nickname} has been caught`);
+      } else {
+        window.alert(`${pokemon.nickname} already used`);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -54,8 +63,8 @@ const DetailPokemon = () => {
     setShowForm(false);
     setPokemon({
       ...pokemon,
-      nickname: ""
-    })
+      nickname: "",
+    });
   };
 
   const catchingChance = () => {
@@ -87,10 +96,12 @@ const DetailPokemon = () => {
                   id="nickname"
                   name="nickname"
                   placeholder="Enter Nickname"
-                  onChange={(e) => setPokemon({
-                    ...pokemon,
-                    nickname: (e.target.value)
-                  })}
+                  onChange={(e) =>
+                    setPokemon({
+                      ...pokemon,
+                      nickname: e.target.value,
+                    })
+                  }
                   required
                 />
                 <div className="form-buttons">

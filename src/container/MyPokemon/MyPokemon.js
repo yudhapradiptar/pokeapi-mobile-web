@@ -3,10 +3,8 @@ import "../ListPokemon/ListPokemon.scss";
 import PokemonCard from "../../components/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 
-const ListPokemon = () => {
+const MyPokemon = () => {
   const { myPokemons } = useContext(MyPokemonsContext);
-
-  console.log(myPokemons);
 
   return myPokemons.length !== 0 ? (
     <>
@@ -25,4 +23,4 @@ const ListPokemon = () => {
   );
 };
 
-export default ListPokemon;
+export default MyPokemon;
