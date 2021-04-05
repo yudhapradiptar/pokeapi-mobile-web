@@ -2,15 +2,22 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
-import instance from "../../axios";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
+import { gql, useQuery } from "@apollo/client";
+import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
 
 const DetailPokemon = () => {
+
+  const { name } = useParams();
+
   const [showForm, setShowForm] = useState(false);
+
+  const { error, loading, data } = useQuery(GET_DETAIL_POKEMON, {
+    variables: { name: name },
+  });
 
   const { dispatch, myPokemons } = useContext(MyPokemonsContext);
 
-  const { name } = useParams();
   const [pokemon, setPokemon] = useState({
     name: "",
     moves: [],
@@ -18,15 +25,15 @@ const DetailPokemon = () => {
     image: "",
     nickname: "",
   });
+  
 
   const getPokemon = async () => {
-    const response = await instance.get(`/pokemon/${name}`);
     setPokemon({
       ...pokemon,
-      name: response.data.name,
-      moves: response.data.moves,
-      types: response.data.types,
-      image: response.data.sprites.front_default,
+      name: data.pokemon.name,
+      moves: data.pokemon.moves,
+      types: data.pokemon.types,
+      image: data.pokemon.sprites.front_default,
     });
   };
 
@@ -34,8 +41,10 @@ const DetailPokemon = () => {
   let typesLen = pokemon.types.length;
 
   useEffect(() => {
-    getPokemon();
-  }, []);
+    if(data) {
+      getPokemon();
+    }
+  }, [data]);
 
   const checkDuplicate = (nick) => {
     for (var i = 0; i<myPokemons.length;i++) {
