@@ -2,25 +2,45 @@ import React, { useState, useEffect, useContext } from "react";
 import "./ListPokemon.scss";
 import PokemonCard from "../../components/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "../../graphql/Queries";
+import TablePagination from "@material-ui/core/TablePagination";
 
 const ListPokemon = () => {
+  const [page, setPage] = useState(0);
+
+  const [limit, setLimit] = useState(20);
+
+  const [offset, setOffset] = useState(0);
+
   const { error, loading, data } = useQuery(GET_POKEMONS, {
-    variables: { limit: 2, offset: 0 },
+    variables: { limit: limit, offset: offset },
   });
+
+  const getCount = () => {
+    if (data) return data.pokemons.count;
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setOffset(limit * (newPage));
+    setPage(newPage);
+  };
+
+  const handleChangeRowPerPage = (event) => {
+    setLimit(parseInt(event.target.value, 10));
+    handlePageChange(0, 0);
+  };
 
   const { myPokemons } = useContext(MyPokemonsContext);
 
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
-    console.log('useEffect')
-    console.log(data);
     if (data) {
       setPokemons(data.pokemons.results);
+      console.log("useEffect");
     }
-  }, [data]);
+  }, [data, limit, offset]);
 
   const getOwned = (name) => {
     let count = 0;
@@ -40,6 +60,17 @@ const ListPokemon = () => {
             from={"list"}
           />
         ))}
+        <div className="pagination">
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 20, 50, 100]}
+            component="div"
+            count={getCount()}
+            page={page}
+            onChangePage={handlePageChange}
+            rowsPerPage={limit}
+            onChangeRowsPerPage={handleChangeRowPerPage}
+          />
+        </div>
       </div>
     </>
   );
