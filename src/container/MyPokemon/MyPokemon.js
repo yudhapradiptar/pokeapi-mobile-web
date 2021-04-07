@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import "../ListPokemon/ListPokemon.scss";
-import PokemonCard from "../../components/PokemonCard";
+import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 
 const MyPokemon = () => {

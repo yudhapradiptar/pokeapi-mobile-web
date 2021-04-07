@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import "./PokemonCard.scss";
 import { Link } from "react-router-dom";
-import PokeButton from "./PokeButton";
-import { MyPokemonsContext } from "../context/MyPokemonsContext";
-import Notifications from "./Notifications";
+import PokeButton from "../PokeButton";
+import { MyPokemonsContext } from "../../context/MyPokemonsContext";
+import Notifications from "../Notifications";
 
 const PokemonCard = (props) => {
   const { dispatch } = useContext(MyPokemonsContext);

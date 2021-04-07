@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./ListPokemon.scss";
-import PokemonCard from "../../components/PokemonCard";
+import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "../../graphql/Queries";
