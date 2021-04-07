@@ -1,13 +1,35 @@
 @import "../../components/config.scss";
 
-.list-pokemon {
+body {
   display: flex;
   flex-direction: column;
-  align-self: center;
-  margin-bottom: 5rem;
   align-items: center;
-}
+  @include mobile {
+    margin-bottom: 2rem;
+  }
 
-.empty-list {
+  @include monitor {
+
+  }
+
+  .list-pokemon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    @include mobile {
+      justify-content: center;
+    }
   
+    @include monitor {
+      margin-left: 8rem;
+    }
+  }
+  
+  .pagination {
+    align-self: center;
+  }
+  
+  .empty-list {
+    
+  }
 }

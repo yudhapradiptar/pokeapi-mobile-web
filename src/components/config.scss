@@ -1,9 +1,11 @@
 $primary-color: white;
 $secondary-color: #fa3c3c;
 $third-color: rgb(105, 105, 219);
-$shadow-color: gray;
+$shadow-color: #999;
 $background-color: rgb(238, 238, 238);
 $text-color-black: #272727;
+
+$mobile: 800px;
 
 .poke-button {
 //   background-color: $third-color;
@@ -18,4 +20,16 @@ $text-color-black: #272727;
   padding: 16px 26px;
   text-decoration: none;
   margin-top: 2rem;
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin monitor {
+  @media (min-width: $mobile) {
+    @content;
+  }
 }

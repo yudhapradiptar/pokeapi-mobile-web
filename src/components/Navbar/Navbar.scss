@@ -1,30 +1,47 @@
-@import '../config';
+@import "../config";
 
 .navbar {
+  position: fixed;
+  @include mobile {
+    bottom: 0;
+    justify-content: space-between;
+    width: 100%;
+    height: 4rem;
+    flex-direction: row;
+  }
+
+  @include monitor {
+    top: 0;
+    left: 0;
+    width: 6rem;
+    height: 100vh;
+    flex-direction: column;
+  }
+
+  box-shadow: 2px 2px 2px 2px $shadow-color;
   display: flex;
-  flex-direction: row;
   background-color: $primary-color;
   color: $secondary-color;
   width: 100%;
-  height: 8vh;
-  font-size: 2rem;
-  position: fixed;
-  bottom: 0;
-  box-shadow: 2px 2px 2px 2px $shadow-color;
-  justify-content: space-between;
+  height: 4rem;
 
-  .navitem{
+  .navitem {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 5rem;
-    margin: 0 3rem 0 3rem;
+    @include mobile {
+      flex-direction: column;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0 6rem 0 6rem;
+    }
+
+    @include monitor {
+      font-size: 4rem;
+      justify-content: center;
+      margin: 3rem 0;
+    }
+
     color: $secondary-color;
     text-decoration: none;
     cursor: pointer;
-    
-    .navitem-title {
-      font-size: 1rem;
-    }
   }
 }

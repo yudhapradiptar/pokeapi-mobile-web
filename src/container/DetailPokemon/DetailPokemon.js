@@ -5,6 +5,7 @@ import PokeButton from "../../components/PokeButton";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 import { gql, useQuery } from "@apollo/client";
 import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
+import Notifications from "../../components/Notifications";
 
 const DetailPokemon = () => {
 
@@ -59,12 +60,13 @@ const DetailPokemon = () => {
       if (checkDuplicate(pokemon.nickname)) {
         dispatch({ type: "CATCH", pokemon: pokemon });
         handleHideForm();
-        window.alert(`${pokemon.nickname} has been caught`);
+        Notifications("catch-submit", pokemon.nickname);
       } else {
-        window.alert(`${pokemon.nickname} already used`);
+        Notifications("nickname-exist", pokemon.nickname);
       }
     } catch (e) {
       console.log(e);
+      Notifications("catch-failed", pokemon.name);
     }
   };
 
@@ -78,9 +80,10 @@ const DetailPokemon = () => {
 
   const catchingChance = () => {
     if (Math.random() < 0.5) {
+      Notifications("catch-success", pokemon.name);
       setShowForm(true);
     } else {
-      window.alert("You missed, try again!");
+      Notifications("catch-failed", pokemon.name);
       setShowForm(false);
     }
   };

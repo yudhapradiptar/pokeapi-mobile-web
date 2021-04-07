@@ -1,12 +1,12 @@
 @import "config";
 
 .pokemon-card {
-  margin: 2rem 0;
+  margin: 2rem 2rem;
   height: auto;
-  width: 40vh;
+  width: 17rem;
   background-color: $background-color;
   border-radius: 35px;
-  border: 1px solid $shadow-color;
+  border: 1px solid $secondary-color;
   text-decoration: none;
   color: $text-color-black;
 

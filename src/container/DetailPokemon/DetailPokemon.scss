@@ -9,7 +9,14 @@
 
   .pokemon-card {
     height: auto;
-    width: 40vh;
+    width: 60%;
+    // @include mobile {
+    //   width: 40%;
+    // }
+  
+    // @include monitor {
+    //   width: 60%;
+    // }
     background-color: $background-color;
     border-radius: 35px;
     border: 1px solid $shadow-color;

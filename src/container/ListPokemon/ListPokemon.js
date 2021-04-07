@@ -22,7 +22,7 @@ const ListPokemon = () => {
   };
 
   const handlePageChange = (event, newPage) => {
-    setOffset(limit * (newPage));
+    setOffset(limit * newPage);
     setPage(newPage);
   };
 
@@ -51,28 +51,28 @@ const ListPokemon = () => {
   };
 
   return (
-    <>
+    <body>
       <div className="list-pokemon">
         {pokemons.map((pokemon) => (
           <PokemonCard
-            name={pokemon.name}
+            pokemon={pokemon}
             owned={getOwned(pokemon.name)}
             from={"list"}
           />
         ))}
-        <div className="pagination">
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 20, 50, 100]}
-            component="div"
-            count={getCount()}
-            page={page}
-            onChangePage={handlePageChange}
-            rowsPerPage={limit}
-            onChangeRowsPerPage={handleChangeRowPerPage}
-          />
-        </div>
       </div>
-    </>
+      <div className="pagination">
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 20, 50, 100, { value: -1, label: 'All' }]}
+          component="div"
+          count={getCount()}
+          page={page}
+          onChangePage={handlePageChange}
+          rowsPerPage={limit}
+          onChangeRowsPerPage={handleChangeRowPerPage}
+        />
+      </div>
+    </body>
   );
 };
 
