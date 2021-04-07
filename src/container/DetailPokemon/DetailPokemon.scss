@@ -10,17 +10,11 @@
   .pokemon-card {
     height: auto;
     width: 60%;
-    // @include mobile {
-    //   width: 40%;
-    // }
-  
-    // @include monitor {
-    //   width: 60%;
-    // }
+    border: 1px solid $secondary-color;
     background-color: $background-color;
     border-radius: 35px;
-    border: 1px solid $shadow-color;
     margin-bottom: 2rem;
+    border: 1px solid $secondary-color;
 
     .pokemon-item {
       display: flex;

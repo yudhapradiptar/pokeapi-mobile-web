@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../ListPokemon/ListPokemon.scss";
 import PokemonCard from "../../components/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 
 const MyPokemon = () => {
   const { myPokemons } = useContext(MyPokemonsContext);
+
+  useEffect(() => {
+    document.title = "My Pokemon"
+ }, []);
 
   return myPokemons.length !== 0 ? (
     <body>

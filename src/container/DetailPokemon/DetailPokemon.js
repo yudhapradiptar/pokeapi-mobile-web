@@ -8,7 +8,6 @@ import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
 import Notifications from "../../components/Notifications";
 
 const DetailPokemon = () => {
-
   const { name } = useParams();
 
   const [showForm, setShowForm] = useState(false);
@@ -26,7 +25,6 @@ const DetailPokemon = () => {
     image: "",
     nickname: "",
   });
-  
 
   const getPokemon = async () => {
     setPokemon({
@@ -42,13 +40,14 @@ const DetailPokemon = () => {
   let typesLen = pokemon.types.length;
 
   useEffect(() => {
-    if(data) {
+    document.title = name;
+    if (data) {
       getPokemon();
     }
   }, [data]);
 
   const checkDuplicate = (nick) => {
-    for (var i = 0; i<myPokemons.length;i++) {
+    for (var i = 0; i < myPokemons.length; i++) {
       if (myPokemons[i].nickname === nick) return false;
     }
     return true;

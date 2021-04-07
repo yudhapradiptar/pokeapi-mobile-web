@@ -42,6 +42,10 @@ const ListPokemon = () => {
     }
   }, [data, limit, offset]);
 
+  useEffect(() => {
+    document.title = "Home"
+ }, []);
+
   const getOwned = (name) => {
     let count = 0;
     for (let i = 0; i < myPokemons.length; i++) {
