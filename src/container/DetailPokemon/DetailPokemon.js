@@ -1,33 +1,86 @@
-import React, { useState, useEffect } from "react";
-import image from "../../assets/images/logo192.png";
+import React, { useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
+import { MyPokemonsContext } from "../../context/MyPokemonsContext";
+import { gql, useQuery } from "@apollo/client";
+import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
 
 const DetailPokemon = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [nickForm, setNickForm] = useState("");
 
-  const handleSubmitCatch = async (event) => {
-    if (nickForm !== "") {
-      try {
-        console.log(nickForm);
-        setShowForm(false);
-      } catch (e) {
-        console.log(e);
+  const { name } = useParams();
+
+  const [showForm, setShowForm] = useState(false);
+
+  const { error, loading, data } = useQuery(GET_DETAIL_POKEMON, {
+    variables: { name: name },
+  });
+
+  const { dispatch, myPokemons } = useContext(MyPokemonsContext);
+
+  const [pokemon, setPokemon] = useState({
+    name: "",
+    moves: [],
+    types: [],
+    image: "",
+    nickname: "",
+  });
+  
+
+  const getPokemon = async () => {
+    setPokemon({
+      ...pokemon,
+      name: data.pokemon.name,
+      moves: data.pokemon.moves,
+      types: data.pokemon.types,
+      image: data.pokemon.sprites.front_default,
+    });
+  };
+
+  let movesLen = pokemon.moves.length;
+  let typesLen = pokemon.types.length;
+
+  useEffect(() => {
+    if(data) {
+      getPokemon();
+    }
+  }, [data]);
+
+  const checkDuplicate = (nick) => {
+    for (var i = 0; i<myPokemons.length;i++) {
+      if (myPokemons[i].nickname === nick) return false;
+    }
+    return true;
+  };
+
+  const handleSubmitCatch = (e) => {
+    e.preventDefault();
+    try {
+      if (checkDuplicate(pokemon.nickname)) {
+        dispatch({ type: "CATCH", pokemon: pokemon });
+        handleHideForm();
+        window.alert(`${pokemon.nickname} has been caught`);
+      } else {
+        window.alert(`${pokemon.nickname} already used`);
       }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const handleHideForm = () => {
     setShowForm(false);
-    setNickForm("");
+    setPokemon({
+      ...pokemon,
+      nickname: "",
+    });
   };
 
   const catchingChance = () => {
-    const bool = Math.random() < 0.5;
-    if (bool) {
+    if (Math.random() < 0.5) {
       setShowForm(true);
     } else {
+      window.alert("You missed, try again!");
       setShowForm(false);
     }
   };
@@ -37,7 +90,7 @@ const DetailPokemon = () => {
       <div className="detail">
         <div className="pokemon-card">
           <div className="pokemon-item">
-            <img src={image} alt="pokemon" className="pokemon-image" />
+            <img src={pokemon.image} alt="pokemon" className="pokemon-image" />
             {!showForm && (
               <PokeButton
                 className="poke-button"
@@ -46,22 +99,22 @@ const DetailPokemon = () => {
               />
             )}
             {showForm && (
-              <div className="form">
+              <form onSubmit={handleSubmitCatch}>
                 <input
                   type="text"
                   id="nickname"
                   name="nickname"
                   placeholder="Enter Nickname"
-                  onChange={(e) => setNickForm(e.target.value)}
+                  onChange={(e) =>
+                    setPokemon({
+                      ...pokemon,
+                      nickname: e.target.value,
+                    })
+                  }
+                  required
                 />
                 <div className="form-buttons">
-                  <PokeButton
-                    text="submit"
-                    color="white"
-                    backgroundColor="#00C851"
-                    onclick={() => handleSubmitCatch()}
-                    disabled={nickForm === ""}
-                  />
+                  <input type="submit" value="Catch" />
                   <PokeButton
                     text="cancel"
                     color="white"
@@ -69,22 +122,32 @@ const DetailPokemon = () => {
                     onclick={() => handleHideForm()}
                   />
                 </div>
-              </div>
+              </form>
             )}
             <div className="info-detail">
               <div className="detail-item">
                 <p style={{ paddingRight: "20px" }}>Name:</p>
-                <p>Actual name</p>
+                <p>{pokemon.name}</p>
               </div>
               <div className="detail-item">
                 <p style={{ paddingRight: "1rem" }}>Moves:</p>
                 <p>
-                  In nisi adipisicing labore nostru lorem ipsum badjsadisahdsai
+                  {pokemon.moves.map((move, i) =>
+                    movesLen === i + 1
+                      ? `${move.move.name}`
+                      : `${move.move.name}, `
+                  )}
                 </p>
               </div>
               <div className="detail-item">
                 <p style={{ paddingRight: "20px" }}>Types:</p>
-                <p>In nisi adipisicing labore nostrud.</p>
+                <p>
+                  {pokemon.types.map((type, i) =>
+                    typesLen === i + 1
+                      ? `${type.type.name}`
+                      : `${type.type.name}, `
+                  )}
+                </p>
               </div>
             </div>
           </div>
