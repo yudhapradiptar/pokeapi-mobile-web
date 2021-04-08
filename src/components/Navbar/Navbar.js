@@ -10,12 +10,24 @@ const Navbar = () => {
   return (
     <>
       <div className="navbar">
-        <Link to={"/"} className="navitem" style={{color: location==="/" ? "#9238c9" : ""}}>
-          <AiOutlineHome />
-        </Link>
-        <Link to={"/my-pokemon"} className="navitem" style={{color: location==="/my-pokemon" ? "#9238c9" : ""}}>
-          <CgPokemon />
-        </Link>
+        <div className="navDivider">
+          <Link
+            to={"/"}
+            className="navitem"
+            style={{ color: location === "/" ? "#9238c9" : "" }}
+          >
+            <AiOutlineHome />
+          </Link>
+        </div>
+        <div className="navDivider">
+          <Link
+            to={"/my-pokemon"}
+            className="navitem"
+            style={{ color: location === "/my-pokemon" ? "#9238c9" : "" }}
+          >
+            <CgPokemon />
+          </Link>
+        </div>
       </div>
     </>
   );

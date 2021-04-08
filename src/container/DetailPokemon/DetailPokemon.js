@@ -7,7 +7,6 @@ import { useQuery } from "@apollo/client";
 import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
 import Notifications from "../../components/Notifications";
 import { CircularProgress } from "@material-ui/core";
-import emptyPokemon from "../../assets/images/empty.png";
 
 const DetailPokemon = () => {
   const { name } = useParams();
@@ -66,7 +65,6 @@ const DetailPokemon = () => {
         Notifications("nickname-exist", pokemon.nickname);
       }
     } catch (e) {
-      console.log(e);
       Notifications("catch-failed", pokemon.name);
     }
   };
@@ -94,7 +92,6 @@ const DetailPokemon = () => {
       <div className="detail">
         {error && (
           <div className="empty-pokeball">
-            <img src={emptyPokemon} alt="empty-pokeball" />
             <h2>Something's wrong in the server, sorry :(</h2>
           </div>
         )}

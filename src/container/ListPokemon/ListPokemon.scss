@@ -1,28 +1,23 @@
 @import "../../components/config.scss";
 
-body {
+.list-body{
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .loading {
     position: absolute;
     top: 40%;
+    align-self: center;
   }
 
   .empty-pokeball {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    opacity: 30%;
     position: absolute;
-    top: 10%;
+    top: 40%;
     opacity: 40%;
-    @include monitor {
-      left: 35%;
-      top: 12%
-    }
     text-align: center;
+    align-self: center;
 
     h2 {
       @include mobile {
@@ -41,10 +36,8 @@ body {
   .list-pokemon {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
-    @include mobile {
-      justify-content: center;
-    }
 
     @include monitor {
       margin-left: 8rem;

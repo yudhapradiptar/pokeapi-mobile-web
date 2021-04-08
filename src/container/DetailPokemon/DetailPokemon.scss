@@ -7,6 +7,12 @@
   margin-top: auto;
   margin-bottom: 4rem;
 
+  .loading {
+    position: absolute;
+    top: 40%;
+    align-self: center;
+  }
+
   .pokemon-card {
     height: auto;
     width: 60%;

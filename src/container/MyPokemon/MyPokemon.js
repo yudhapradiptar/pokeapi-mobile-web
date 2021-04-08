@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import "../ListPokemon/ListPokemon.scss";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
-import emptyPokemon from "../../assets/images/empty.png";
 
 const MyPokemon = () => {
   const { myPokemons } = useContext(MyPokemonsContext);
@@ -12,11 +11,10 @@ const MyPokemon = () => {
   }, []);
 
   return (
-    <body>
+    <div className="list-body">
       <div className="list-pokemon">
         {myPokemons.length === 0 && (
           <div className="empty-pokeball">
-            <img src={emptyPokemon} alt="empty-pokeball" />
             <h2>There's no pokemon here, catch some!</h2>
           </div>
         )}
@@ -24,7 +22,7 @@ const MyPokemon = () => {
           <PokemonCard pokemon={pokemon} from="myPokemon" />
         ))}
       </div>
-    </body>
+    </div>
   );
 };
 

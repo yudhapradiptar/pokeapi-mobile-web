@@ -5,7 +5,6 @@ import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "../../graphql/Queries";
 import { TablePagination, CircularProgress } from "@material-ui/core";
-import emptyPokemon from "../../assets/images/empty.png";
 
 const ListPokemon = () => {
   const [page, setPage] = useState(0);
@@ -39,7 +38,6 @@ const ListPokemon = () => {
   useEffect(() => {
     if (data) {
       setPokemons(data.pokemons.results);
-      console.log("useEffect");
     }
   }, [data, limit, offset]);
 
@@ -56,10 +54,9 @@ const ListPokemon = () => {
   };
 
   return (
-    <body>
+    <div className="list-body">
       {error && (
         <div className="empty-pokeball">
-          <img src={emptyPokemon} alt="empty-pokeball" />
           <h2>Something's wrong in the server, sorry :(</h2>
         </div>
       )}
@@ -98,7 +95,7 @@ const ListPokemon = () => {
           />
         </div>
       )}
-    </body>
+    </div>
   );
 };
 
