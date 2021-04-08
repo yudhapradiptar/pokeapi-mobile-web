@@ -13,6 +13,23 @@
     align-self: center;
   }
 
+  .empty-pokeball {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+    opacity: 0.4;
+    text-align: center;
+    align-self: center;
+    align-items: center;
+
+    h2 {
+      @include mobile {
+        font-size: 1rem;;
+      }
+    }
+  }
+
   .pokemon-card {
     height: auto;
     width: 60%;

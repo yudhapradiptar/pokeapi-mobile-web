@@ -15,9 +15,11 @@ const MyPokemon = () => {
       <div className="list-pokemon">
         {myPokemons.length === 0 && (
           <div className="empty-pokeball">
+            <img src={"/pokeball.png"} alt="empty-pokeball" />
             <h2>There's no pokemon here, catch some!</h2>
           </div>
         )}
+        {console.log(myPokemons.length === 0)}
         {myPokemons.map((pokemon) => (
           <PokemonCard pokemon={pokemon} from="myPokemon" />
         ))}

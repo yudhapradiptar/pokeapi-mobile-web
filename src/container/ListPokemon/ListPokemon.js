@@ -57,11 +57,12 @@ const ListPokemon = () => {
     <div className="list-body">
       {error && (
         <div className="empty-pokeball">
-          <h2>Something's wrong in the server, sorry :(</h2>
+          <img src={"/pokeball.png"} alt="empty-pokeball" />
+          <h2>Something went wrong, sorry :(</h2>
         </div>
       )}
-      
-      {loading && !error &&(
+
+      {loading && !error && (
         <CircularProgress color="secondary" size={120} className="loading" />
       )}
       {!loading && (

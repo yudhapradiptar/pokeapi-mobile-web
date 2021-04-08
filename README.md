@@ -1,8 +1,8 @@
 # PokeAPI Catch!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is using [Create React App](https://github.com/facebook/create-react-app), [Graphql](https://graphql.org/), [Context](https://reactjs.org/docs/context.html), [Hooks](https://reactjs.org/docs/hooks-intro.html), and [Scss](https://sass-lang.com/).
 
-This project can be accessed here: https://pokeapi-catch.vercel.app/my-pokemon
+This project can be accessed here: https://pokeapi-catch.vercel.app
 
 ## Available Scripts
 
@@ -16,6 +16,6 @@ Install all dependencies.
 
 Runs the app locally using the **development** build of react.
 
-### `yarn build`
+### `yarn prod`
 
-Build the **production** build of react.
+Build and run **production** build of react.
