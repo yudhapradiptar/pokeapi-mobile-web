@@ -19,7 +19,6 @@ const MyPokemon = () => {
             <h2>There's no pokemon here, catch some!</h2>
           </div>
         )}
-        {console.log(myPokemons.length === 0)}
         {myPokemons.map((pokemon) => (
           <PokemonCard pokemon={pokemon} from="myPokemon" />
         ))}
