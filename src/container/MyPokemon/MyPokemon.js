@@ -2,27 +2,29 @@ import React, { useContext, useEffect } from "react";
 import "../ListPokemon/ListPokemon.scss";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
+import emptyPokemon from "../../assets/images/empty.png";
 
 const MyPokemon = () => {
   const { myPokemons } = useContext(MyPokemonsContext);
 
   useEffect(() => {
-    document.title = "My Pokemon"
- }, []);
+    document.title = "My Pokemon";
+  }, []);
 
-  return myPokemons.length !== 0 ? (
+  return (
     <body>
       <div className="list-pokemon">
+        {myPokemons.length === 0 && (
+          <div className="empty-pokeball">
+            <img src={emptyPokemon} alt="empty-pokeball" />
+            <h2>There's no pokemon here, catch some!</h2>
+          </div>
+        )}
         {myPokemons.map((pokemon) => (
-          <PokemonCard
-            pokemon={pokemon}
-            from="myPokemon"
-          />
+          <PokemonCard pokemon={pokemon} from="myPokemon" />
         ))}
       </div>
     </body>
-  ) : (
-    <div className="empty-list">There is no Pokemon here, catch some!</div>
   );
 };
 

@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import "./DetailPokemon.scss";
 import PokeButton from "../../components/PokeButton";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_DETAIL_POKEMON } from "../../graphql/Queries";
 import Notifications from "../../components/Notifications";
+import { CircularProgress } from "@material-ui/core";
+import emptyPokemon from "../../assets/images/empty.png";
 
 const DetailPokemon = () => {
   const { name } = useParams();
@@ -90,70 +92,85 @@ const DetailPokemon = () => {
   return (
     <>
       <div className="detail">
-        <div className="pokemon-card">
-          <div className="pokemon-item">
-            <img src={pokemon.image} alt="pokemon" className="pokemon-image" />
-            {!showForm && (
-              <PokeButton
-                className="poke-button"
-                text="Catch!"
-                onclick={() => catchingChance()}
+        {error && (
+          <div className="empty-pokeball">
+            <img src={emptyPokemon} alt="empty-pokeball" />
+            <h2>Something's wrong in the server, sorry :(</h2>
+          </div>
+        )}
+        {loading && !error && (
+          <CircularProgress color="secondary" size={120} className="loading" />
+        )}
+        {!loading && !error && (
+          <div className="pokemon-card">
+            <div className="pokemon-item">
+              <img
+                src={pokemon.image}
+                alt="pokemon"
+                className="pokemon-image"
               />
-            )}
-            {showForm && (
-              <form onSubmit={handleSubmitCatch}>
-                <input
-                  type="text"
-                  id="nickname"
-                  name="nickname"
-                  placeholder="Enter Nickname"
-                  onChange={(e) =>
-                    setPokemon({
-                      ...pokemon,
-                      nickname: e.target.value,
-                    })
-                  }
-                  required
+              {!showForm && (
+                <PokeButton
+                  className="poke-button"
+                  text="Catch!"
+                  onclick={() => catchingChance()}
                 />
-                <div className="form-buttons">
-                  <input type="submit" value="Catch" />
-                  <PokeButton
-                    text="cancel"
-                    color="white"
-                    backgroundColor="#ff4444"
-                    onclick={() => handleHideForm()}
+              )}
+              {showForm && (
+                <form onSubmit={handleSubmitCatch}>
+                  <input
+                    type="text"
+                    id="nickname"
+                    name="nickname"
+                    placeholder="Enter Nickname"
+                    onChange={(e) =>
+                      setPokemon({
+                        ...pokemon,
+                        nickname: e.target.value,
+                      })
+                    }
+                    required
                   />
+                  <div className="form-buttons">
+                    <input type="submit" value="Catch" />
+                    <PokeButton
+                      text="cancel"
+                      color="white"
+                      backgroundColor="#ff4444"
+                      onclick={() => handleHideForm()}
+                    />
+                  </div>
+                </form>
+              )}
+              <div className="info-detail">
+                <div className="detail-item">
+                  <p style={{ paddingRight: "20px" }}>Name:</p>
+                  <p>{pokemon.name}</p>
                 </div>
-              </form>
-            )}
-            <div className="info-detail">
-              <div className="detail-item">
-                <p style={{ paddingRight: "20px" }}>Name:</p>
-                <p>{pokemon.name}</p>
-              </div>
-              <div className="detail-item">
-                <p style={{ paddingRight: "1rem" }}>Moves:</p>
-                <p>
-                  {pokemon.moves.map((move, i) =>
-                    movesLen === i + 1
-                      ? `${move.move.name}`
-                      : `${move.move.name}, `
-                  )}
-                </p>
-              </div>
-              <div className="detail-item">
-                <p style={{ paddingRight: "20px" }}>Types:</p>
-                <p>
-                  {pokemon.types.map((type, i) =>
-                    typesLen === i + 1
-                      ? `${type.type.name}`
-                      : `${type.type.name}, `
-                  )}
-                </p>
+                <div className="detail-item">
+                  <p style={{ paddingRight: "1rem" }}>Moves:</p>
+                  <p>
+                    {pokemon.moves.map((move, i) =>
+                      movesLen === i + 1
+                        ? `${move.move.name}`
+                        : `${move.move.name}, `
+                    )}
+                  </p>
+                </div>
+                <div className="detail-item">
+                  <p style={{ paddingRight: "20px" }}>Types:</p>
+                  <p>
+                    {pokemon.types.map((type, i) =>
+                      typesLen === i + 1
+                        ? `${type.type.name}`
+                        : `${type.type.name}, `
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

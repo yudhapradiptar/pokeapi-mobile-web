@@ -4,7 +4,8 @@ import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { MyPokemonsContext } from "../../context/MyPokemonsContext";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "../../graphql/Queries";
-import TablePagination from "@material-ui/core/TablePagination";
+import { TablePagination, CircularProgress } from "@material-ui/core";
+import emptyPokemon from "../../assets/images/empty.png";
 
 const ListPokemon = () => {
   const [page, setPage] = useState(0);
@@ -43,8 +44,8 @@ const ListPokemon = () => {
   }, [data, limit, offset]);
 
   useEffect(() => {
-    document.title = "Home"
- }, []);
+    document.title = "Home";
+  }, []);
 
   const getOwned = (name) => {
     let count = 0;
@@ -56,26 +57,47 @@ const ListPokemon = () => {
 
   return (
     <body>
-      <div className="list-pokemon">
-        {pokemons.map((pokemon) => (
-          <PokemonCard
-            pokemon={pokemon}
-            owned={getOwned(pokemon.name)}
-            from={"list"}
+      {error && (
+        <div className="empty-pokeball">
+          <img src={emptyPokemon} alt="empty-pokeball" />
+          <h2>Something's wrong in the server, sorry :(</h2>
+        </div>
+      )}
+      
+      {loading && !error &&(
+        <CircularProgress color="secondary" size={120} className="loading" />
+      )}
+      {!loading && (
+        <div className="list-pokemon">
+          {pokemons.map((pokemon) => (
+            <PokemonCard
+              pokemon={pokemon}
+              owned={getOwned(pokemon.name)}
+              from={"list"}
+            />
+          ))}
+        </div>
+      )}
+      {!loading && !error && (
+        <div className="pagination">
+          <TablePagination
+            rowsPerPageOptions={[
+              5,
+              10,
+              20,
+              50,
+              100,
+              { value: -1, label: "All" },
+            ]}
+            component="div"
+            count={getCount()}
+            page={page}
+            onChangePage={handlePageChange}
+            rowsPerPage={limit}
+            onChangeRowsPerPage={handleChangeRowPerPage}
           />
-        ))}
-      </div>
-      <div className="pagination">
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 20, 50, 100, { value: -1, label: 'All' }]}
-          component="div"
-          count={getCount()}
-          page={page}
-          onChangePage={handlePageChange}
-          rowsPerPage={limit}
-          onChangeRowsPerPage={handleChangeRowPerPage}
-        />
-      </div>
+        </div>
+      )}
     </body>
   );
 };
