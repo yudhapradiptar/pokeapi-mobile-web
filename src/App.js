@@ -12,17 +12,8 @@ import {
   from,
   InMemoryCache,
 } from "@apollo/client";
-import {  onError } from "@apollo/client/link/error";
 
-const errorLink = onError(({graphqlErrors, networkError}) => {
-  if(graphqlErrors) {
-    graphqlErrors.map(({message, location, pathj}) => {
-      alert(`graphql error ${message}`)
-    })
-  }
-})
 const link = from ([
-  errorLink,
   new HttpLink({uri: "https://graphql-pokeapi.vercel.app/api/graphql"})
 ])
 
